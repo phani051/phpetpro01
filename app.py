@@ -1,4 +1,5 @@
 import os
+import json
 import subprocess
 from flask import Flask, render_template, jsonify
 from flask_socketio import SocketIO, emit
@@ -7,6 +8,14 @@ app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 SCRIPTS_DIR = "scripts"
+METADATA_FILE = os.path.join(SCRIPTS_DIR, "metadata.json")
+
+# Load script descriptions
+def load_script_metadata():
+    if os.path.exists(METADATA_FILE):
+        with open(METADATA_FILE, "r") as f:
+            return json.load(f)
+    return {}
 
 @app.route('/')
 def index():
@@ -14,9 +23,16 @@ def index():
 
 @app.route('/get_scripts')
 def get_scripts():
-    """Fetch the list of available scripts from the scripts directory."""
-    scripts = [f for f in os.listdir(SCRIPTS_DIR) if os.path.isfile(os.path.join(SCRIPTS_DIR, f))]
-    return jsonify(scripts)
+    """Fetch the list of available scripts with descriptions."""
+    try:
+        scripts = [f for f in os.listdir(SCRIPTS_DIR) if os.path.isfile(os.path.join(SCRIPTS_DIR, f))]
+        print("Available scripts:", scripts)  # Debugging log
+        metadata = load_script_metadata()
+        script_data = [{"name": script, "description": metadata.get(script, "No description available.")} for script in scripts]
+        return jsonify(script_data)
+    except Exception as e:
+        print("Error fetching scripts:", str(e))
+        return jsonify({"error": str(e)}), 500
 
 @socketio.on('run_script')
 def handle_script_execution(data):

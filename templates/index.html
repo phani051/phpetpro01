@@ -23,6 +23,11 @@
             padding: 8px;
             font-size: 16px;
         }
+        #script-description {
+            font-style: italic;
+            margin-top: 10px;
+            color: #0f0;
+        }
         #output-container {
             width: 80%;
             max-width: 800px;
@@ -45,10 +50,13 @@
     <!-- Dropdown for selecting scripts -->
     <div id="script-container">
         <label for="script-select">Select a script:</label>
-        <select id="script-select"></select>
+        <select id="script-select" onchange="updateScriptDescription()"></select>
         <input type="text" id="script-args" placeholder="Enter arguments (optional)">
         <button onclick="runSelectedScript()">Run</button>
     </div>
+
+    <!-- Script description -->
+    <div id="script-description">Select a script to see its description.</div>
 
     <!-- Live script output -->
     <div id="output-container"></div>

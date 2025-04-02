@@ -1,0 +1,10 @@
+{
+    "hello.sh": "Prints 'Hello, World!' without any input.",
+    "sysinfo.sh": "Displays system information such as hostname, uptime, memory, and disk usage.",
+    "list_users.sh": "Lists all system users.",
+    "network_info.sh": "Shows network interfaces and active connections.",
+    "cpu_usage.sh": "Displays CPU usage details.",
+    "random_number.sh": "Generates a random number between 0-99.",
+    "backup_logs.sh": "Simulates backing up logs (no actual backup).",
+    "greet.sh": "Requires a name as an argument. Usage: ./greet.sh <name>"
+}
