@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Execution Portal</title>
+
+    <!-- Load Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+    <style>
+        body { 
+            background-color: black; 
+            color: white; 
+            text-align: center; 
+            font-family: Arial, sans-serif;
+        }
+        #script-container {
+            margin-bottom: 15px;
+        }
+        select, button, input {
+            margin: 5px;
+            padding: 8px;
+            font-size: 16px;
+        }
+        #output-container {
+            width: 80%;
+            max-width: 800px;
+            height: 300px;
+            margin: auto;
+            padding: 10px;
+            background-color: #000;
+            color: #0f0;
+            font-family: monospace;
+            border: 2px solid #0f0;
+            text-align: left;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h2>Script Execution Portal</h2>
+
+    <!-- Dropdown for selecting scripts -->
+    <div id="script-container">
+        <label for="script-select">Select a script:</label>
+        <select id="script-select"></select>
+        <input type="text" id="script-args" placeholder="Enter arguments (optional)">
+        <button onclick="runSelectedScript()">Run</button>
+    </div>
+
+    <!-- Live script output -->
+    <div id="output-container"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
