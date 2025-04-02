@@ -1,58 +1,93 @@
 import os
-import json
 import subprocess
-from flask import Flask, render_template, jsonify
+import uuid
+import json
+from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 SCRIPTS_DIR = "scripts"
-METADATA_FILE = os.path.join(SCRIPTS_DIR, "metadata.json")
+UPLOAD_FOLDER = "uploads"
+METADATA_FILE = "metadata.json"
 
-# Load script descriptions
-def load_script_metadata():
-    if os.path.exists(METADATA_FILE):
-        with open(METADATA_FILE, "r") as f:
-            return json.load(f)
-    return {}
+# Ensure directories exist
+os.makedirs(SCRIPTS_DIR, exist_ok=True)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@app.route('/')
+# ✅ Route: Home Page
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/get_scripts')
-def get_scripts():
-    """Fetch the list of available scripts with descriptions."""
+# ✅ Route: List Available Scripts
+@app.route("/list_scripts", methods=["GET"])
+def list_scripts():
     try:
-        scripts = [f for f in os.listdir(SCRIPTS_DIR) if os.path.isfile(os.path.join(SCRIPTS_DIR, f))]
-        print("Available scripts:", scripts)  # Debugging log
-        metadata = load_script_metadata()
-        script_data = [{"name": script, "description": metadata.get(script, "No description available.")} for script in scripts]
-        return jsonify(script_data)
+        scripts = [
+            f for f in os.listdir(SCRIPTS_DIR) if f.endswith(".sh")
+        ]
+        print(f"DEBUG: Scripts found - {scripts}")  # Add debugging log
+        return jsonify({"scripts": scripts})
     except Exception as e:
-        print("Error fetching scripts:", str(e))
+        print(f"ERROR: {e}")
         return jsonify({"error": str(e)}), 500
 
-@socketio.on('run_script')
-def handle_script_execution(data):
-    """Execute the selected script with optional arguments and stream output."""
-    script_name = data.get('script_name')
-    script_args = data.get('args', '').split()
+# ✅ Route: Get Script Descriptions
+@app.route("/script_metadata", methods=["GET"])
+def script_metadata():
+    try:
+        if os.path.exists(METADATA_FILE):
+            with open(METADATA_FILE, "r") as f:
+                metadata = json.load(f)
+        else:
+            metadata = {}
+        return jsonify(metadata)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ✅ Route: Execute Script with Argument & File Support
+@app.route("/run_script", methods=["POST"])
+def run_script():
+    script_name = request.form.get("script_name")
+    script_arg = request.form.get("script_arg", "").strip()
+    uploaded_file = request.files.get("file")
+
+    if not script_name:
+        return jsonify({"error": "No script selected"}), 400
+
     script_path = os.path.join(SCRIPTS_DIR, script_name)
+    if not os.path.exists(script_path):
+        return jsonify({"error": f"Script {script_name} not found"}), 404
 
-    if os.path.exists(script_path):
-        process = subprocess.Popen(
-            ['bash', script_path] + script_args,
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-        )
+    file_path = None
+    if uploaded_file:
+        file_ext = os.path.splitext(uploaded_file.filename)[1]
+        file_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}{file_ext}")
+        uploaded_file.save(file_path)
 
-        for line in process.stdout:
-            emit('output', {'data': line}, broadcast=True)
-        for line in process.stderr:
-            emit('output', {'data': line}, broadcast=True)
-    else:
-        emit('output', {'data': f"Script {script_name} not found."}, broadcast=True)
+    # Build command with argument and file
+    command = ["bash", script_path]
+    if script_arg:
+        command.append(script_arg)
+    if file_path:
+        command.append(file_path)
 
-if __name__ == '__main__':
+    process = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+
+    for line in process.stdout:
+        socketio.emit("output", {"data": line.strip()})
+    for line in process.stderr:
+        socketio.emit("output", {"data": line.strip()})
+
+    if file_path:
+        os.remove(file_path)  # Cleanup uploaded file after execution
+
+    return jsonify({"status": "running"})
+
+# ✅ Run the Flask App
+if __name__ == "__main__":
     socketio.run(app, port=5000, debug=True)

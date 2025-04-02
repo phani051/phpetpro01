@@ -1,9 +1,17 @@
 #!/bin/bash
 
-# Check if an argument is provided
-if [ -z "$1" ]; then
-    echo "Usage: ./greet.sh <name>"
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <greeting> [file]"
     exit 1
 fi
 
-echo "Hello, $1! Welcome to the script execution portal."
+GREETING="$1"
+FILE="$2"
+
+if [ -z "$FILE" ]; then
+    echo "$GREETING, User!"
+else
+    while IFS= read -r name; do
+        echo "$GREETING, $name!"
+    done < "$FILE"
+fi

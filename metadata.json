@@ -6,5 +6,5 @@
     "cpu_usage.sh": "Displays CPU usage details.",
     "random_number.sh": "Generates a random number between 0-99.",
     "backup_logs.sh": "Simulates backing up logs (no actual backup).",
-    "greet.sh": "Requires a name as an argument. Usage: ./greet.sh <name>"
+    "greet.sh": "Reads names from a file and greets each name. Upload a text file with one name per line."
 }

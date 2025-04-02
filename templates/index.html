@@ -4,63 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Script Execution Portal</title>
-
-    <!-- Load Socket.IO -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
     <style>
-        body { 
-            background-color: black; 
-            color: white; 
-            text-align: center; 
-            font-family: Arial, sans-serif;
-        }
-        #script-container {
-            margin-bottom: 15px;
-        }
-        select, button, input {
-            margin: 5px;
-            padding: 8px;
-            font-size: 16px;
-        }
-        #script-description {
-            font-style: italic;
-            margin-top: 10px;
-            color: #0f0;
-        }
-        #output-container {
-            width: 80%;
-            max-width: 800px;
-            height: 300px;
-            margin: auto;
-            padding: 10px;
-            background-color: #000;
-            color: #0f0;
-            font-family: monospace;
-            border: 2px solid #0f0;
-            text-align: left;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        select, button, input { margin: 10px 0; padding: 10px; width: 100%; }
+        #output-container { background: black; color: green; padding: 10px; height: 300px; overflow-y: auto; font-family: monospace; }
     </style>
 </head>
 <body>
+
     <h2>Script Execution Portal</h2>
 
-    <!-- Dropdown for selecting scripts -->
-    <div id="script-container">
-        <label for="script-select">Select a script:</label>
-        <select id="script-select" onchange="updateScriptDescription()"></select>
-        <input type="text" id="script-args" placeholder="Enter arguments (optional)">
-        <button onclick="runSelectedScript()">Run</button>
-    </div>
+    <!-- ✅ Script Selection Dropdown -->
+    <label for="script-select">Select a Script:</label>
+    <select id="script-select">
+        <option value="">Loading scripts...</option>
+    </select>
 
-    <!-- Script description -->
-    <div id="script-description">Select a script to see its description.</div>
+    <!-- ✅ Script Description -->
+    <p id="script-description">Select a script to see the description.</p>
 
-    <!-- Live script output -->
-    <div id="output-container"></div>
+    <!-- ✅ Input for Argument -->
+    <label for="script-arg">Script Argument (Optional):</label>
+    <input type="text" id="script-arg" placeholder="Enter argument">
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- ✅ File Upload (Optional) -->
+    <label for="script-file">Upload File (Optional):</label>
+    <input type="file" id="script-file">
+
+    <!-- ✅ Run Script Button -->
+    <button id="run-script">Run Script</button>
+
+    <!-- ✅ Output Display -->
+    <h3>Live Output:</h3>
+    <div id="output-container">Waiting for execution...</div>
+
 </body>
 </html>
