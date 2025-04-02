@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+body {
+    font-family: 'Special Elite', cursive;
+    background: #c4a484;
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Grainy Paper Texture */
+    color: #5a3e1b;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Center the heading at the top */
+.header {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    padding-top: 20px;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #3e2c19;
+}
+
+/* Aged, Grainy Paper Container */
+.container {
+    display: flex;
+    gap: 10px;
+    width: 90%;
+    max-width: 1200px;
+    justify-content: space-between;
+    background: #e0c9a6;
+    background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png'),
+                      url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Rough Aged Look */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.3), 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Typewriter-Style Panels */
+.left-panel, .right-panel {
+    background: #dac0a3;
+    background-image: url('https://www.transparenttextures.com/patterns/crumpled-paper.png'),
+                      url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #5a3e1b;
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.3);
+    flex: 1;
+}
+
+/* Old Aged Paper Terminal Output */
+.output-container {
+    background: #e0c9a6;
+    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png'),
+                      url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Grainy */
+    color: #3a2e23;
+    border: 1px solid #5a3e1b;
+    height: 280px;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 16px;
+    font-family: 'Special Elite', cursive;
+    border-radius: 5px;
+    text-shadow: 1px 1px 2px rgba(90, 62, 27, 0.8);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
+    line-height: 1.6;
+}
+
+/* Buttons */
+button {
+    background-color: #aa825a;
+    color: #3a2e23;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: 1px solid #5a3e1b;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Special Elite', cursive;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: #8b6c50;
+}
+
+/* Dropdown & Inputs */
+select, input[type="text"], input[type="file"] {
+    font-family: 'Special Elite', cursive;
+    background-color: #dac0a3;
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    color: #5a3e1b;
+    border: 1px solid #5a3e1b;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #3e2c19;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}

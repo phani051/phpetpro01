@@ -1,0 +1,118 @@
+/* General Page Styling */
+body {
+    font-family: "Share Tech Mono", monospace;
+    background: #091921;
+    color: #00d4ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    justify-content: space-between;
+}
+
+/* Panels */
+.left-panel, .right-panel {
+    background: #112233;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #00d4ff;
+    box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    flex: 1;
+}
+
+/* Terminal Output */
+.output-container {
+    background: #000;
+    color: #00ffea;
+    border: 2px solid #00ffea;
+    height: 300px;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+/* AI-Style Buttons */
+button {
+    background-color: #00d4ff;
+    color: black;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #112233;
+    color: #00d4ff;
+    border: 2px solid #00d4ff;
+    box-shadow: 0px 0px 20px rgba(0, 212, 255, 1);
+}
+
+/* 🔹 Dropdown Styling (Restored Layout) */
+select {
+    background-color: #112233;
+    color: #00d4ff;
+    border: 2px solid #00d4ff;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 280px;
+    transition: 0.3s ease-in-out;
+}
+
+/* 🔹 Argument Text Box (Restored Layout) */
+input[type="text"] {
+    background-color: #112233;
+    color: #00d4ff;
+    border: 2px solid #00d4ff;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    transition: 0.3s ease-in-out;
+}
+
+/* 🔹 File Upload */
+input[type="file"] {
+    background-color: #112233;
+    color: #00d4ff;
+    border: 2px solid #00d4ff;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    transition: 0.3s ease-in-out;
+}
+
+/* 🔹 File Upload Button */
+input[type="file"]::file-selector-button {
+    background-color: #00d4ff;
+    color: black;
+    border: none;
+    padding: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #0088aa;
+    color: white;
+}

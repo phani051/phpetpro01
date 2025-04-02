@@ -1,17 +1,13 @@
 #!/bin/bash
 
-if [ "$#" -lt 1 ]; then
-    echo "Usage: $0 <greeting> [file]"
-    exit 1
-fi
-
-GREETING="$1"
-FILE="$2"
-
-if [ -z "$FILE" ]; then
-    echo "$GREETING, User!"
-else
+if [[ -f "$1" ]]; then
+    # Read from file if first argument is a file
     while IFS= read -r name; do
-        echo "$GREETING, $name!"
-    done < "$FILE"
+        echo "Hello, $name!"
+    done < "$1"
+elif [[ ! -z "$1" ]]; then
+    # If argument is given as a direct input
+    echo "Hello, $1!"
+else
+    echo "Usage: $0 <name or filename>"
 fi

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Roboto+Mono&display=swap');
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #F5F7FA;
+    color: #212529;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    gap: 10px; /* Reduced space between panels */
+    width: 95%; /* Increased usage area */
+    max-width: 1400px;
+    justify-content: space-between;
+}
+
+/* Panels */
+.left-panel, .right-panel {
+    background: white;
+    padding: 15px; /* Reduced padding */
+    border-radius: 8px;
+    border: 1px solid #CED4DA;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+/* Terminal Output - Live Execution */
+.output-container {
+    background: #000;  /* Full black */
+    color: #39FF14;  /* Neon green */
+    border: 1px solid #39FF14;
+    height: 280px;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+    font-family: "Roboto Mono", monospace;
+    border-radius: 5px;
+}
+
+/* Buttons */
+button {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Dropdown & Inputs */
+select, input[type="text"], input[type="file"] {
+    font-family: "Inter", sans-serif;
+    background-color: white;
+    color: #495057;
+    border: 1px solid #CED4DA;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+/* Light/Dark Mode Toggle */
+.dark-mode body {
+    background: #212529;
+    color: white;
+}
+
+.dark-mode .left-panel, .dark-mode .right-panel {
+    background: #2C3034;
+    border: 1px solid #495057;
+}
+
+.dark-mode .output-container {
+    background: #000;  /* Stays full black */
+    color: #39FF14;  /* Stays neon green */
+    border: 1px solid #39FF14;
+}
+
+.dark-mode select, .dark-mode input[type="text"], .dark-mode input[type="file"] {
+    background-color: #343A40;
+    color: white;
+    border: 1px solid #495057;
+}

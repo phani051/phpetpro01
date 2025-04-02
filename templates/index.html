@@ -4,41 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Script Execution Portal</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        select, button, input { margin: 10px 0; padding: 10px; width: 100%; }
-        #output-container { background: black; color: green; padding: 10px; height: 300px; overflow-y: auto; font-family: monospace; }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script defer src="/static/script.js"></script>
 </head>
 <body>
 
-    <h2>Script Execution Portal</h2>
+    <!-- Heading at the top center -->
+    <div class="header">
+        <h1>Script Executor</h1>
+        
+    </div>
 
-    <!-- ✅ Script Selection Dropdown -->
-    <label for="script-select">Select a Script:</label>
-    <select id="script-select">
-        <option value="">Loading scripts...</option>
-    </select>
+    
 
-    <!-- ✅ Script Description -->
-    <p id="script-description">Select a script to see the description.</p>
+    <div class="container">
+        <!-- Left Panel: Script Selection & Input -->
+        <div class="left-panel">
+            <h3>Select a Script</h3>
+            <select id="script-select"></select>
+            <p id="script-description" class="script-info">No script selected.</p>
 
-    <!-- ✅ Input for Argument -->
-    <label for="script-arg">Script Argument (Optional):</label>
-    <input type="text" id="script-arg" placeholder="Enter argument">
+            <h3>Arguments</h3>
+            <input type="text" id="script-arg" placeholder="Enter argument (if required)">
 
-    <!-- ✅ File Upload (Optional) -->
-    <label for="script-file">Upload File (Optional):</label>
-    <input type="file" id="script-file">
+            <h3>Upload File (Optional)</h3>
+            <input type="file" id="script-file">
 
-    <!-- ✅ Run Script Button -->
-    <button id="run-script">Run Script</button>
+            <button id="run-script">Run Script</button>
+        </div>
 
-    <!-- ✅ Output Display -->
-    <h3>Live Output:</h3>
-    <div id="output-container">Waiting for execution...</div>
+        <!-- Right Panel: Live Output -->
+        <div class="right-panel">
+            <h3>Live Output</h3>
+            <pre id="output-container" class="output-container"></pre>
+        </div>
+    </div>
+    <!-- Footer with Copyright -->
+    <footer>
+        <p>© <span id="year">2025</span> phani051. All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>
